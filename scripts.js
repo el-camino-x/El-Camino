@@ -3,19 +3,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const galleryGrid = document.getElementById('galleryGrid');
     const categoryButtons = document.querySelectorAll('.category-buttons button');
 
-    // Link CSV Google Sheet
     const sheetCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRboqZEBiUEQHouonAd-xBZzI2H56JYmK0L4KapC6hThYXidsl2JIB_A9kTiFJHKlVl5fG43-LMz_Ge/pub?output=csv';
 
     let galleryData = [];
 
-    // ===== FETCH CSV & RENDER =====
     if(galleryGrid && categoryButtons.length > 0) {
 
         fetch(sheetCsvUrl)
         .then(res => res.text())
         .then(csvText => {
             const lines = csvText.split('\n').filter(l => l.trim() !== '');
-            const headers = lines.shift().split(','); // Kategori,Judul,Deskripsi,URL Foto,Pencipta,TanggalUpload
+            const headers = lines.shift().split(','); 
 
             galleryData = lines.map(line => {
                 const cols = line.split(',');
@@ -29,11 +27,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 };
             });
 
-            renderGallery('all'); // tampil awal semua
+            renderGallery('all'); 
         })
         .catch(err => console.error('Fetch CSV error:', err));
 
-        // ===== RENDER GALLERY =====
         function renderGallery(filter) {
             const f = filter.trim().toLowerCase();
             galleryGrid.innerHTML = '';
@@ -49,7 +46,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         <p>${item.deskripsi}</p>
                     `;
 
-                    // ===== MODAL FOTO =====
                     const modal = document.getElementById('galleryModal');
                     const modalImg = document.getElementById('modalImage');
                     const modalTitle = document.getElementById('modalTitle');
@@ -71,7 +67,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // ===== FILTER KATEGORI =====
         categoryButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 const category = btn.getAttribute('data-category').trim();
@@ -82,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ===== TUTUP MODAL =====
     const modal = document.getElementById('galleryModal');
     const closeBtn = document.querySelector('.close');
     if(closeBtn){
@@ -92,7 +86,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ===== POPUP WARNING =====
     function showWarning(msg) {
         const popup = document.getElementById("warnPopup");
         if(!popup) return;
@@ -101,23 +94,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         setTimeout(() => {
             popup.classList.remove("show");
-        }, 500); // 0.5 detik
+        }, 500); 
     }
 
-    // ===== ANTI INSPECT =====
     document.addEventListener("contextmenu", function(e) {
         e.preventDefault();
         showWarning("Stop trying to get into my mind!");
     });
 
     document.onkeydown = function(e) {
-        // F12
         if(e.keyCode === 123){ showWarning("Stop trying to get into my mind!"); return false; }
-        // CTRL+SHIFT+I
         if(e.ctrlKey && e.shiftKey && e.keyCode === 73){ showWarning("Stop trying to get into my mind!"); return false; }
-        // CTRL+SHIFT+J
         if(e.ctrlKey && e.shiftKey && e.keyCode === 74){ showWarning("Stop trying to get into my mind!"); return false; }
-        // CTRL+U → tampil foto fullscreen random
         if(e.ctrlKey && e.keyCode === 85){ 
             e.preventDefault();
             if(galleryData.length > 0){
@@ -128,7 +116,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // ===== FULLSCREEN FOTO UNTUK CTRL+U =====
     function showFullScreenImage(url){
         let fullScreenDiv = document.createElement('div');
         fullScreenDiv.style.position = 'fixed';
@@ -152,7 +139,6 @@ document.addEventListener('DOMContentLoaded', function() {
         fullScreenDiv.appendChild(img);
         document.body.appendChild(fullScreenDiv);
 
-        // Klik anywhere → tutup
         fullScreenDiv.addEventListener('click', () => {
             document.body.removeChild(fullScreenDiv);
         });
