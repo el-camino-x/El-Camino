@@ -278,17 +278,14 @@ header nav a.active {
     margin-bottom: 40px;
 }
 
-.category-buttons button {
-    background: linear-gradient(90deg, #700000, #c20000);
-    border: none;
-    color: #fff;
-    padding: 10px 20px;
-    margin: 0 8px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 0 0 10px rgba(255,0,0,0.25);
+.category-buttons {
+    display: flex;     
+    flex-direction: row;     
+    flex-wrap: wrap;    
+    justify-content: center; 
+    gap: 12px;      
+    margin-bottom: 40px;
+    text-align: center;
 }
 
 .category-buttons button:hover {
@@ -345,6 +342,13 @@ header nav a.active {
 @media screen and (max-width: 480px) {
     .gallery-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .category-buttons {
+        justify-content: center;
+        flex-wrap: wrap;
     }
 }
 
