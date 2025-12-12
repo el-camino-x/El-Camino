@@ -31,17 +31,23 @@
     <div class="gallery-grid" id="galleryGrid">
     </div>
 
+    <!-- Modal untuk detail gambar -->
     <div id="galleryModal" class="modal">
-     <div class="modal-content">
-          <span class="close">&times;</span>
-          <img id="modalImage" src="" alt="">
-          <h3 id="modalTitle"></h3>
-           <p><strong></strong> <span id="modalDesc"></span></p>
-           <p><strong>Price:</strong> <span id="modalPrice"></span></p>
-       </div>
-</div>
+        <div class="modal-content">
+            <!-- Wrapper gambar + tombol prev/next -->
+              <div class="modal-image-wrapper">
+                 <button id="prevDetail" class="detail-btn">&#10094;</button> <!-- panah kiri -->
+                  <img id="modalImage" src="" alt="">
+                <button id="nextDetail" class="detail-btn">&#10095;</button> <!-- panah kanan -->
+              </div>
 
+            <h3 id="modalTitle"></h3>
+            <p><strong></strong> <span id="modalDesc"></span></p>
+            <p><strong>Price:</strong> <span id="modalPrice"></span></p>
+        </div>
+    </div>
 </section>
+
 
 <div id="warnPopup" class="notify-popup"></div>
 
